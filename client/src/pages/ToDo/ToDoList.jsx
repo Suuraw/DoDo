@@ -24,18 +24,27 @@ import {
 } from "@ant-design/icons";
 
 // Function to format the date
-const getFormattedDate = (dateString) => {
-  const options = {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false, // Set to true if you want a 12-hour format
+const getFormattedDate = (dateString = new Date()) => {
+    const parsedDate = new Date(dateString);
+  
+    // Check if parsedDate is a valid date
+    if (isNaN(parsedDate)) {
+      return "Invalid Date"; // Return a fallback in case of invalid date
+    }
+  
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false, // Set to true if you want a 12-hour format
+    };
+  
+    return parsedDate.toLocaleString(undefined, options);
   };
-
-  return new Date(dateString).toLocaleString(undefined, options);
-};
+  
+  
 
 function ToDoList() {
   const [title, setTitle] = useState("");
@@ -91,7 +100,9 @@ function ToDoList() {
         description,
         iscompleted: false,
         createdBy: userId,
-      };
+        createdAt: getFormattedDate().toString()  // Ensure you're passing a proper date format
+    };
+      console.log(getFormattedDate())
       await ToDoServices.createToDo(data);
       setLoading(false);
       message.success("To Do Task Added Successfully!");
@@ -140,6 +151,7 @@ function ToDoList() {
         title: updatedTitle,
         description: updatedDescription,
         iscompleted: updatedStatus, // Ensure updated status is sent
+        updatedat:getFormattedDate().toString()
       };
       await ToDoServices.updateToDo(currentEditItem.id, data);
       message.success(`${currentEditItem.title} Updated Successfully!`);
@@ -223,7 +235,7 @@ function ToDoList() {
                 </div>
 
                 <div className={styles.toDoCardFooter}>
-                  <Tag>{getFormattedDate(item.createdat)}</Tag>
+                  <Tag>{getFormattedDate()}</Tag>
                   <div className={styles.toDoFooterAction}>
                     <Tooltip title="Edit Task?">
                       <EditOutlined
