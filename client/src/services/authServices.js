@@ -1,7 +1,8 @@
 import axios from "axios";
-
-const SERVER_URL = "http://localhost:5000/api";
-
+import env from "dotenv";
+env.config();
+const SERVER_URL =
+  process.env.REACT_APP_SERVER_URL || "https://doodo.vercel.app/api";
 const registerUser = (data) => {
   return axios.post(SERVER_URL + "/register", data);
 };

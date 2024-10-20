@@ -1,7 +1,8 @@
 import axios from "axios";
 import { getUserDetails } from "../util/GetUser";
-
-const SERVER_URL = "http://localhost:5000/api/todo";
+import env from "dotenv";
+env.config();
+const SERVER_URL = process.env.REACT_APP_SERVER_URL + "/todo";
 
 const authHeaders = () => {
   let userToken = getUserDetails()?.token;
