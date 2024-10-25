@@ -14,6 +14,11 @@
 # production
 /build
 
+
+#ssl certificate
+/SSLcertificate
+
+
 # misc
 .DS_Store
 .env

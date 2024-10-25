@@ -2,7 +2,7 @@ import axios from "axios";
 // import env from "dotenv";
 // env.config();//
 const SERVER_URL =
-  process.env.REACT_APP_SERVER_URL || "https://doodo.vercel.app/api";
+  process.env.REACT_APP_SERVER_URL;
 
 const registerUser = (data) => {
   console.log("Register URL:", SERVER_URL + "/register");

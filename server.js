@@ -2,11 +2,12 @@ import express from "express";
 import cors from "cors";
 import https from "https"; // Import HTTPS module
 import fs from "fs"; // Import File System module
-import authRoutes from "../routes/authRoutes.js";
-import toDoRoutes from "../routes/ToDoRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
+import toDoRoutes from "./routes/ToDoRoutes.js";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 import env from "dotenv";
+
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 env.config();

@@ -25,26 +25,24 @@ import {
 
 // Function to format the date
 const getFormattedDate = (dateString = new Date()) => {
-    const parsedDate = new Date(dateString);
-  
-    // Check if parsedDate is a valid date
-    if (isNaN(parsedDate)) {
-      return "Invalid Date"; // Return a fallback in case of invalid date
-    }
-  
-    const options = {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: false, // Set to true if you want a 12-hour format
-    };
-  
-    return parsedDate.toLocaleString(undefined, options);
+  const parsedDate = new Date(dateString);
+
+  // Check if parsedDate is a valid date
+  if (isNaN(parsedDate)) {
+    return "Invalid Date"; // Return a fallback in case of invalid date
+  }
+
+  const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false, // Set to true if you want a 12-hour format
   };
-  
-  
+
+  return parsedDate.toLocaleString(undefined, options);
+};
 
 function ToDoList() {
   const [title, setTitle] = useState("");
@@ -66,7 +64,13 @@ function ToDoList() {
     try {
       let user = getUserDetails();
       const response = await ToDoServices.getAllToDo(user.userId);
-      setAllToDo(response.data);
+      // setAllToDo(response.data);//as user first login the data of the user might be null so we need to wrap it around a condition
+      // setAllToDo(Array.isArray(response.data) ? response.data : []);
+      if (response) {
+        setAllToDo(response.data);
+      } else {
+        setAllToDo([]);
+      }
     } catch (err) {
       message.error(getErrorMessage(err));
     }
@@ -98,11 +102,11 @@ function ToDoList() {
       const data = {
         title,
         description,
-        iscompleted: false,
+        isCompleted: false,
         createdBy: userId,
-        createdAt: getFormattedDate().toString()  // Ensure you're passing a proper date format
-    };
-      console.log(getFormattedDate())
+        createdAt: getFormattedDate().toString(), // Ensure you're passing a proper date format
+      };
+      console.log(getFormattedDate());
       await ToDoServices.createToDo(data);
       setLoading(false);
       message.success("To Do Task Added Successfully!");
@@ -136,7 +140,13 @@ function ToDoList() {
 
   const handleUpdateStatus = async (id, status) => {
     try {
-      await ToDoServices.updateToDo(id, { iscompleted: status });
+      await ToDoServices.updateToDo(id, {
+        isCompleted: status,
+        // title: updatedTitle,
+        // description: updatedDescription,
+        // iscompleted: updatedStatus,
+        completedon: getFormattedDate().toString(),
+      });
       message.success("Task Status Updated Successfully!");
       getAllToDo();
     } catch (err) {
@@ -151,7 +161,7 @@ function ToDoList() {
         title: updatedTitle,
         description: updatedDescription,
         iscompleted: updatedStatus, // Ensure updated status is sent
-        updatedat:getFormattedDate().toString()
+        updatedat: getFormattedDate().toString(),
       };
       await ToDoServices.updateToDo(currentEditItem.id, data);
       message.success(`${currentEditItem.title} Updated Successfully!`);
@@ -176,7 +186,7 @@ function ToDoList() {
     setFilteredToDo(filteredList.length > 0 ? filteredList : []);
   };
 
-  const taskListToDisplay =
+  let taskListToDisplay =
     filteredToDo.length > 0
       ? filteredToDo
       : allToDo.filter((item) =>
@@ -225,7 +235,7 @@ function ToDoList() {
                 <div>
                   <div className={styles.toDoCardHeader}>
                     <h3>{item.title}</h3>
-                    {item.iscompleted ? (
+                    {item.iscompleted ? ( //fixed
                       <Tag color="cyan">Completed</Tag>
                     ) : (
                       <Tag color="red">Incomplete</Tag>
@@ -235,7 +245,13 @@ function ToDoList() {
                 </div>
 
                 <div className={styles.toDoCardFooter}>
-                  <Tag>{getFormattedDate()}</Tag>
+                  {console.log(item)}
+                  <Tag>
+                    {item.completedon !== null
+                      ? item.completedon
+                      : item.createdat}
+                  </Tag>
+                  
                   <div className={styles.toDoFooterAction}>
                     <Tooltip title="Edit Task?">
                       <EditOutlined
