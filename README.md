@@ -58,5 +58,13 @@ To get started with this project locally, follow these steps:
 
 2. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/todo-app.git
-   cd todo-app
+   git clone https://github.com/Suuraw/DoDo.git
+3. **Steps to run the website locally**:
+   - Backend
+       - npm install
+       - nodemon server.js 
+   - Frontend
+       -npm i
+       -npm run start
+  
+{::comment} Make sure backend server and frontend server are running on seperate port {:/comment}
