@@ -35,7 +35,7 @@ This project is a **To-Do website** built using the **MERN** stack (with Postgre
 
 ## Deployment
 
-1. Configuring the API for a serverless architecture to deploy on Vercel.
+1. Configuring the API for a serverless architecture to deploy on Vercel.(on going)
 
 ## Getting Started
 
