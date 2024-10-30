@@ -33,7 +33,7 @@ This project is a **To-Do website** built using the **MERN** stack (with Postgre
 - Secure API endpoints for task management.
 - User-friendly interface for managing to-do items.
 
-## Deployement
+## Deployment
 
 1. Configuring the API for a serverless architecture to deploy on Vercel.
 
