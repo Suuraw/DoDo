@@ -8,11 +8,8 @@ This project is a **To-Do website** built using the **MERN** stack (with Postgre
 
 - [Technologies Used](#technologies-used)
 - [Features](#features)
-- [Getting Started](#getting-started)
-- [API Endpoints](#api-endpoints)
 - [Deployment](#deployment)
-- [Contributing](#contributing)
-- [License](#license)
+- [Getting Started](#getting-started)
 
 ## Technologies Used
 
@@ -35,6 +32,10 @@ This project is a **To-Do website** built using the **MERN** stack (with Postgre
 - Responsive design using Material UI.
 - Secure API endpoints for task management.
 - User-friendly interface for managing to-do items.
+
+## Deployement
+
+1. Configuring the API for a serverless architecture to deploy on Vercel.
 
 ## Getting Started
 
@@ -64,7 +65,7 @@ To get started with this project locally, follow these steps:
        - npm install
        - nodemon server.js 
    - Frontend
-       -npm i
-       -npm run start
+       - npm i
+       - npm run start
   
 {::comment} Make sure backend server and frontend server are running on seperate port {:/comment}
